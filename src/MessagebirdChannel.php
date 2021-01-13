@@ -37,8 +37,10 @@ class MessagebirdChannel
         if (is_string($message)) {
             $message = MessagebirdMessage::create($message);
         }
+		
+		$to = $notifiable->routeNotificationFor('messagebird') ?? $notifiable->routes[static::class];
 
-        if ($to = $notifiable->routeNotificationFor('messagebird')) {
+        if ($to) {
             $message->setRecipients($to);
         }
 
